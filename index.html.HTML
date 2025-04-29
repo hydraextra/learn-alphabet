@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn Alphabet A-Z</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: #fff3e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .letter {
+      font-size: 120px;
+      color: #ff7043;
+      margin-bottom: 10px;
+    }
+
+    .image {
+      font-size: 80px;
+      margin-bottom: 10px;
+    }
+
+    .word {
+      font-size: 32px;
+      color: #6d4c41;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #ffab91;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff7043;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="letter" id="letter">A</div>
+    <div class="image" id="image">🍎</div>
+    <div class="word" id="word">Apple</div>
+    <div class="buttons">
+      <button onclick="prevLetter()">Previous</button>
+      <button onclick="speakBoth()">Speak</button>
+      <button onclick="nextLetter()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const alphabetData = [
+      { letter: 'A', word: 'Apple', emoji: '🍎' },
+      { letter: 'B', word: 'Ball', emoji: '⚽' },
+      { letter: 'C', word: 'Cat', emoji: '🐱' },
+      { letter: 'D', word: 'Dog', emoji: '🐶' },
+      { letter: 'E', word: 'Elephant', emoji: '🐘' },
+      { letter: 'F', word: 'Fish', emoji: '🐟' },
+      { letter: 'G', word: 'Grapes', emoji: '🍇' },
+      { letter: 'H', word: 'Hat', emoji: '🎩' },
+      { letter: 'I', word: 'Ice Cream', emoji: '🍦' },
+      { letter: 'J', word: 'Juice', emoji: '🧃' },
+      { letter: 'K', word: 'Kite', emoji: '🪁' },
+      { letter: 'L', word: 'Lion', emoji: '🦁' },
+      { letter: 'M', word: 'Monkey', emoji: '🐵' },
+      { letter: 'N', word: 'Nest', emoji: '🪺' },
+      { letter: 'O', word: 'Orange', emoji: '🍊' },
+      { letter: 'P', word: 'Panda', emoji: '🐼' },
+      { letter: 'Q', word: 'Queen', emoji: '👸' },
+      { letter: 'R', word: 'Rainbow', emoji: '🌈' },
+      { letter: 'S', word: 'Sun', emoji: '☀️' },
+      { letter: 'T', word: 'Tiger', emoji: '🐯' },
+      { letter: 'U', word: 'Umbrella', emoji: '☂️' },
+      { letter: 'V', word: 'Violin', emoji: '🎻' },
+      { letter: 'W', word: 'Whale', emoji: '🐋' },
+      { letter: 'X', word: 'Xylophone', emoji: '🎼' },
+      { letter: 'Y', word: 'Yak', emoji: '🐃' },
+      { letter: 'Z', word: 'Zebra', emoji: '🦓' },
+    ];
+
+    let currentIndex = 0;
+
+    const letterDiv = document.getElementById('letter');
+    const wordDiv = document.getElementById('word');
+    const imageDiv = document.getElementById('image');
+
+    function updateCard() {
+      const item = alphabetData[currentIndex];
+      letterDiv.textContent = item.letter;
+      wordDiv.textContent = item.word;
+      imageDiv.textContent = item.emoji;
+    }
+
+    function nextLetter() {
+      if (currentIndex < alphabetData.length - 1) {
+        currentIndex++;
+        updateCard();
+        speakBoth();
+      }
+    }
+
+    function prevLetter() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCard();
+        speakBoth();
+      }
+    }
+
+    function speakBoth() {
+      const item = alphabetData[currentIndex];
+      const utter = new SpeechSynthesisUtterance(`${item.letter}. ${item.word}`);
+      utter.lang = 'en-US';
+      speechSynthesis.speak(utter);
+    }
+
+    window.onload = () => {
+      updateCard();
+      speakBoth();
+    };
+  </script>
+</body>
+</html>
